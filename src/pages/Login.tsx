@@ -9,13 +9,13 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 
 const Login = () => {
-  const [mode, setMode] = useState<"sign-in" | "sign-up">("sign-in");
+  // Sign up disabled by admin; login only
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
-  const { user, signIn, signUp } = useAuth();
+  const { user, signIn } = useAuth();
 
   useEffect(() => {
     if (user) {
@@ -28,24 +28,13 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
 
-    if (mode === "sign-in") {
-      const { error } = await signIn(email.trim(), password);
-      if (error) {
-        toast({ title: "Login failed", description: error, variant: "destructive" });
-      } else {
-        toast({ title: "Logged in", description: "Redirecting..." });
-        navigate("/");
-      }
+    // Login only
+    const { error } = await signIn(email.trim(), password);
+    if (error) {
+      toast({ title: "Login failed", description: error, variant: "destructive" });
     } else {
-      const { error } = await signUp(email.trim(), password);
-      if (error) {
-        toast({ title: "Sign up failed", description: error, variant: "destructive" });
-      } else {
-        toast({
-          title: "Check your email",
-          description: "We sent a confirmation link to finish signing up.",
-        });
-      }
+      toast({ title: "Logged in", description: "Redirecting..." });
+      navigate("/");
     }
 
     setLoading(false);
@@ -56,9 +45,9 @@ const Login = () => {
       <SEO title="Login" description="Player login to upload match results and stats." />
       <Card className="max-w-md mx-auto">
         <CardHeader>
-          <CardTitle>Player {mode === "sign-in" ? "Login" : "Sign Up"}</CardTitle>
+          <CardTitle>Player Login</CardTitle>
           <CardDescription>
-            Use your team email and password. Only authorized HAVOC players may access uploads.
+            Use your team email and password. Sign-ups are disabled; contact the admin to be added.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -69,18 +58,14 @@ const Login = () => {
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" autoComplete={mode === "sign-in" ? "current-password" : "new-password"} value={password} onChange={(e) => setPassword(e.target.value)} required />
+              <Input id="password" type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} required />
             </div>
             <Button type="submit" variant="hero" className="w-full" disabled={loading}>
-              {loading ? "Please wait..." : mode === "sign-in" ? "Login" : "Create account"}
+              {loading ? "Please wait..." : "Login"}
             </Button>
           </form>
           <div className="mt-4 text-sm text-muted-foreground text-center">
-            {mode === "sign-in" ? (
-              <button className="underline" onClick={() => setMode("sign-up")}>No account? Sign up</button>
-            ) : (
-              <button className="underline" onClick={() => setMode("sign-in")}>Have an account? Sign in</button>
-            )}
+            Sign-ups are disabled. If you need access, contact the admin to register your email.
           </div>
         </CardContent>
       </Card>

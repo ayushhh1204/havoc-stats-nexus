@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Matches from "./pages/Matches";
@@ -11,9 +11,17 @@ import History from "./pages/History";
 import Stats from "./pages/Stats";
 import Login from "./pages/Login";
 import Navbar from "@/components/Navbar";
-import { AuthProvider } from "@/hooks/useAuth";
+import { AuthProvider, useAuth } from "@/hooks/useAuth";
 
 const queryClient = new QueryClient();
+
+const Protected = ({ children }: { children: any }) => {
+  const { user, loading } = useAuth();
+  const location = useLocation();
+  if (loading) return null;
+  if (!user) return <Navigate to="/login" replace state={{ from: location }} />;
+  return <>{children}</>;
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -24,14 +32,14 @@ const App = () => (
         <BrowserRouter>
           <Navbar />
           <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/matches" element={<Matches />} />
-            <Route path="/matches/:id" element={<MatchDetail />} />
-            <Route path="/history" element={<History />} />
-            <Route path="/stats" element={<Stats />} />
+            <Route path="/" element={<Protected><Index /></Protected>} />
+            <Route path="/matches" element={<Protected><Matches /></Protected>} />
+            <Route path="/matches/:id" element={<Protected><MatchDetail /></Protected>} />
+            <Route path="/history" element={<Protected><History /></Protected>} />
+            <Route path="/stats" element={<Protected><Stats /></Protected>} />
             <Route path="/login" element={<Login />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
+            <Route path="*" element={<Protected><NotFound /></Protected>} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
