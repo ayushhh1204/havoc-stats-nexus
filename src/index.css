@@ -17,7 +17,7 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
 
-    --primary: 270 83% 60%;
+    --primary: 270 90% 65%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 270 100% 97%;
@@ -34,67 +34,79 @@ All colors MUST be HSL.
 
     --border: 270 15% 90%;
     --input: 270 15% 90%;
-    --ring: 270 83% 60%;
+    --ring: 270 90% 65%;
 
     --radius: 0.75rem;
 
     /* Sidebar */
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 240 10% 3.9%;
-    --sidebar-primary: 270 83% 60%;
+    --sidebar-primary: 270 90% 65%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 270 100% 97%;
     --sidebar-accent-foreground: 270 60% 25%;
     --sidebar-border: 270 15% 90%;
-    --sidebar-ring: 270 83% 60%;
+    --sidebar-ring: 270 90% 65%;
 
     /* Brand & effects */
-    --brand: 270 83% 60%;
-    --brand-2: 285 80% 66%;
+    --brand: 270 90% 65%;
+    --brand-2: 285 85% 70%;
+    --brand-3: 255 95% 68%;
     --brand-contrast: 0 0% 100%;
     --gradient-hero: linear-gradient(135deg, hsl(var(--brand)), hsl(var(--brand-2)));
-    --shadow-elevated: 0 10px 25px hsl(var(--brand) / 0.2);
-    --shadow-glow: 0 0 40px hsl(var(--brand) / 0.35);
-    --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --gradient-premium: linear-gradient(135deg, hsl(var(--brand)), hsl(var(--brand-3)));
+    --shadow-elevated: 0 10px 35px hsl(var(--brand) / 0.25);
+    --shadow-glow: 0 0 50px hsl(var(--brand) / 0.4);
+    --shadow-premium: 0 0 80px hsl(var(--brand-3) / 0.5);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 
   .dark {
-    --background: 240 6% 7%;
+    --background: 240 8% 8%;
     --foreground: 210 40% 98%;
 
-    --card: 240 6% 7%;
+    --card: 240 6% 10%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 240 6% 7%;
+    --popover: 240 6% 10%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 270 90% 70%;
-    --primary-foreground: 240 6% 7%;
+    --primary: 270 95% 75%;
+    --primary-foreground: 240 8% 8%;
 
-    --secondary: 270 25% 15%;
+    --secondary: 270 30% 18%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 264 16% 16%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 264 18% 14%;
+    --muted-foreground: 215 22% 70%;
 
-    --accent: 270 25% 15%;
+    --accent: 270 30% 18%;
     --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 65% 40%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 270 12% 18%;
-    --input: 270 12% 18%;
-    --ring: 270 90% 70%;
+    --border: 270 15% 20%;
+    --input: 270 15% 20%;
+    --ring: 270 95% 75%;
 
-    --sidebar-background: 240 6% 7%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 270 90% 70%;
-    --sidebar-primary-foreground: 240 6% 7%;
-    --sidebar-accent: 264 16% 16%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 264 16% 16%;
-    --sidebar-ring: 270 90% 70%;
+    --sidebar-background: 240 8% 8%;
+    --sidebar-foreground: 240 5% 96%;
+    --sidebar-primary: 270 95% 75%;
+    --sidebar-primary-foreground: 240 8% 8%;
+    --sidebar-accent: 264 18% 14%;
+    --sidebar-accent-foreground: 240 5% 96%;
+    --sidebar-border: 264 18% 14%;
+    --sidebar-ring: 270 95% 75%;
+
+    /* Enhanced dark theme effects */
+    --brand: 270 95% 75%;
+    --brand-2: 285 90% 78%;
+    --brand-3: 255 100% 80%;
+    --shadow-elevated: 0 15px 40px hsl(var(--brand) / 0.3);
+    --shadow-glow: 0 0 60px hsl(var(--brand) / 0.5);
+    --shadow-premium: 0 0 100px hsl(var(--brand-3) / 0.6);
   }
 }
 
@@ -112,11 +124,17 @@ All colors MUST be HSL.
   .bg-hero-gradient {
     background-image: var(--gradient-hero);
   }
+  .bg-premium-gradient {
+    background-image: var(--gradient-premium);
+  }
   .shadow-glow {
     box-shadow: var(--shadow-glow);
   }
   .shadow-elevated {
     box-shadow: var(--shadow-elevated);
+  }
+  .shadow-premium {
+    box-shadow: var(--shadow-premium);
   }
   .text-gradient {
     background-image: var(--gradient-hero);
@@ -124,7 +142,21 @@ All colors MUST be HSL.
     background-clip: text;
     color: transparent;
   }
+  .text-premium-gradient {
+    background-image: var(--gradient-premium);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
   .smooth-transition {
     transition: var(--transition-smooth);
+  }
+  .spring-transition {
+    transition: var(--transition-spring);
+  }
+  .glass-effect {
+    backdrop-filter: blur(10px);
+    background: hsl(var(--background) / 0.8);
+    border: 1px solid hsl(var(--border) / 0.2);
   }
 }

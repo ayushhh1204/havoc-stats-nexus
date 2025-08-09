@@ -13,9 +13,9 @@ const Navbar = () => {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur">
       <div className="container mx-auto flex h-14 items-center justify-between">
-        <Link to="/" className="font-semibold tracking-tight">
-          <span className="text-gradient">HAVOC</span>
-          <span className="sr-only">HAVOC BGMI Esports Tracker</span>
+        <Link to="/" className="font-bold tracking-tight text-xl">
+          <span className="text-premium-gradient">Performance Track</span>
+          <span className="sr-only">Performance Track BGMI Esports</span>
         </Link>
         <nav className="hidden gap-6 md:flex">
           {navItems.map((item) => (
